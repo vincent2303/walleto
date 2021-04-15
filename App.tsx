@@ -2,27 +2,31 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import WalletsScreen from './screens/WalletsScreen';
-import OverviewScreen from './screens/OverviewScreen';
-import InsideWalletScreen from './screens/InsideWalletScreen';
+import { ParamList } from './screenRoutes';
 
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+import WalletList from './screens/WalletList';
+import Overview from './screens/Overview';
+import NewWallet from './screens/NewWallet';
+import InsideWallet from './screens/InsideWallet';
 
-const TabNavigatorScreen = () => (
+const Stack = createStackNavigator<ParamList>();
+const Tab = createBottomTabNavigator<ParamList>();
+
+const homeBottomTab = () => (
   <Tab.Navigator>
-    <Tab.Screen name="wallets" component={WalletsScreen} />
-    <Tab.Screen name="overview" component={OverviewScreen} />
+    <Tab.Screen name="walletList" component={WalletList} />
+    <Tab.Screen name="overview" component={Overview} />
   </Tab.Navigator>
 );
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="TabNavigator" component={TabNavigatorScreen} />
-        <Stack.Screen name="insideWallet" component={InsideWalletScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
+const App = () => (
+  <NavigationContainer>
+    <Stack.Navigator screenOptions={{ header: () => null }}>
+      <Stack.Screen name="home" component={homeBottomTab} />
+      <Stack.Screen name="insideWallet" component={InsideWallet} />
+      <Stack.Screen name="newWallet" component={NewWallet} />
+    </Stack.Navigator>
+  </NavigationContainer>
+);
+
+export default App;

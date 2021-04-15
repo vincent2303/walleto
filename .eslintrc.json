@@ -25,6 +25,7 @@
         "@typescript-eslint/no-use-before-define": ["error", { "variables": false }],
         "import/extensions": 0,
         "import/no-unresolved": 0,
-        "react/prop-types": 0
+        "react/prop-types": 0,
+        "react/jsx-one-expression-per-line": 0
     }
 }
