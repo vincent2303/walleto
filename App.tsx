@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ParamList } from './screenRoutes';
+import { ParamList } from './types/screenRoutes';
 
 import WalletList from './screens/WalletList';
 import Overview from './screens/Overview';
