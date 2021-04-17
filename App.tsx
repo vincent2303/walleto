@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ParamList } from './global/types';
-import { colors } from './global/styles';
+import { colors, fontSizes } from './global/styles';
 
 import WalletList from './screens/WalletList';
 import Overview from './screens/Overview';
@@ -16,7 +16,7 @@ const Stack = createStackNavigator<ParamList>();
 const Tab = createBottomTabNavigator<ParamList>();
 
 const homeBottomTab = () => (
-  <Tab.Navigator tabBarOptions={{ style: styles.bottomTabBar }}>
+  <Tab.Navigator tabBarOptions={{ style: styles.bottomTabBar, labelStyle: styles.bottomTabText }}>
     <Tab.Screen name="walletList" component={WalletList} />
     <Tab.Screen name="overview" component={Overview} />
   </Tab.Navigator>
@@ -41,6 +41,10 @@ const styles = StyleSheet.create({
   },
   bottomTabBar: {
     backgroundColor: colors.darkBlack,
+  },
+  bottomTabText: {
+    fontSize: fontSizes.small,
+    fontWeight: '800',
   },
 });
 

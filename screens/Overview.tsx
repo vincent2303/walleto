@@ -1,10 +1,10 @@
 import React from 'react';
 import AppScreenContainer from '../components/AppScreenContainer';
-import HomeHeader from '../components/Headers/HomeHeader';
+import PrimaryHeader from '../components/Headers/PrimaryHeader';
 
 const Overview = () => (
   <AppScreenContainer>
-    <HomeHeader title="overview" />
+    <PrimaryHeader title="overview" />
   </AppScreenContainer>
 );
 
