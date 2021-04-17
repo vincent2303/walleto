@@ -9,7 +9,8 @@ const NewWallet = () => (
   <>
     <SecondaryHeader title="new wallet" />
     <AppScreenContainer style={styles.container}>
-      <AppInput />
+      <AppInput title="Wallet name" style={styles.input} />
+      <AppInput title="Wallet address" style={styles.input} />
     </AppScreenContainer>
   </>
 );
@@ -17,7 +18,9 @@ const NewWallet = () => (
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: dimensions.unit * 2,
-    paddingTop: dimensions.unit * 3,
+  },
+  input: {
+    marginTop: dimensions.unit * 3,
   },
 });
 

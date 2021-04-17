@@ -1,14 +1,39 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import {
+  View, StyleSheet, Text, TextInput, ViewStyle,
+} from 'react-native';
+import { colors, dimensions, fontSizes } from '../global/styles';
 
-const AppInput = () => (
-  <View style={styles.container}>
-    <Text>AppInput</Text>
+interface Props {
+  title: string,
+  style?: ViewStyle
+}
+
+const AppInput: React.FC<Props> = ({ title, style }) => (
+  <View style={style}>
+    <Text style={styles.title}>{title}</Text>
+    <TextInput
+      style={styles.input}
+      onChangeText={() => {}}
+      value=""
+    />
   </View>
 );
 
 const styles = StyleSheet.create({
-  container: {
+  title: {
+    fontSize: fontSizes.big,
+    color: colors.white,
+    fontWeight: '500',
+  },
+  input: {
+    backgroundColor: colors.darkBlack,
+    padding: dimensions.unit * 2,
+    fontSize: fontSizes.big,
+    color: colors.white,
+    fontWeight: '300',
+    marginTop: dimensions.unit,
+    borderRadius: 5,
   },
 });
 
