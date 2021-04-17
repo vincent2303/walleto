@@ -1,9 +1,14 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import { colors } from '../global/styles';
 
-const AppScreenContainer = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
-  <View style={styles.container}>
+interface Props {
+  children: JSX.Element | JSX.Element[],
+  style?: ViewStyle
+}
+
+const AppScreenContainer: React.FC<Props> = ({ children, style }) => (
+  <View style={{ ...styles.container, ...style }}>
     {children}
   </View>
 );
