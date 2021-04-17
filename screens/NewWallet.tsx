@@ -7,12 +7,13 @@ import { dimensions } from '../global/styles';
 
 const NewWallet = () => {
   const [walletName, onChangeWalletName] = React.useState('');
+  const [walletAddress, onChangeWalletAddress] = React.useState('');
   return (
     <>
       <SecondaryHeader title="new wallet" />
       <AppScreenContainer style={styles.container}>
         <AppInput title="Wallet name" value={walletName} onchangeText={onChangeWalletName} style={styles.input} />
-        <AppInput title="Wallet address" value="" onchangeText={onChangeWalletName} style={styles.input} />
+        <AppInput title="Wallet address" value={walletAddress} onchangeText={onChangeWalletAddress} style={styles.input} />
       </AppScreenContainer>
     </>
   );
