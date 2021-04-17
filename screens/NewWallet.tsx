@@ -8,7 +8,7 @@ import { dimensions } from '../global/styles';
 const NewWallet = () => (
   <>
     <SecondaryHeader title="new wallet" />
-    <AppScreenContainer style={styles.container} >
+    <AppScreenContainer style={styles.container}>
       <AppInput />
     </AppScreenContainer>
   </>
@@ -16,8 +16,8 @@ const NewWallet = () => (
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: dimensions.unit * 2, 
-    paddingTop: dimensions.unit * 3
+    paddingHorizontal: dimensions.unit * 2,
+    paddingTop: dimensions.unit * 3,
   },
 });
 
