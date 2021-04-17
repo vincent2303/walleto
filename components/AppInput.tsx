@@ -6,16 +6,20 @@ import { colors, dimensions, fontSizes } from '../global/styles';
 
 interface Props {
   title: string,
+  value: string,
+  onchangeText: any,
   style?: ViewStyle
 }
 
-const AppInput: React.FC<Props> = ({ title, style }) => (
+const AppInput: React.FC<Props> = ({
+  title, value, style, onchangeText,
+}) => (
   <View style={style}>
     <Text style={styles.title}>{title}</Text>
     <TextInput
       style={styles.input}
-      onChangeText={() => {}}
-      value=""
+      onChangeText={onchangeText}
+      value={value}
     />
   </View>
 );

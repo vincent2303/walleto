@@ -5,15 +5,18 @@ import AppScreenContainer from '../components/AppScreenContainer';
 import AppInput from '../components/AppInput';
 import { dimensions } from '../global/styles';
 
-const NewWallet = () => (
-  <>
-    <SecondaryHeader title="new wallet" />
-    <AppScreenContainer style={styles.container}>
-      <AppInput title="Wallet name" style={styles.input} />
-      <AppInput title="Wallet address" style={styles.input} />
-    </AppScreenContainer>
-  </>
-);
+const NewWallet = () => {
+  const [walletName, onChangeWalletName] = React.useState('');
+  return (
+    <>
+      <SecondaryHeader title="new wallet" />
+      <AppScreenContainer style={styles.container}>
+        <AppInput title="Wallet name" value={walletName} onchangeText={onChangeWalletName} style={styles.input} />
+        <AppInput title="Wallet address" value="" onchangeText={onChangeWalletName} style={styles.input} />
+      </AppScreenContainer>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
