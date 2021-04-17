@@ -7,7 +7,7 @@ import { colors, dimensions, fontSizes } from '../global/styles';
 interface Props {
   title: string,
   value: string,
-  onchangeText: any,
+  onchangeText: React.Dispatch<React.SetStateAction<string>>,
   style?: ViewStyle
 }
 
