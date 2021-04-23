@@ -5,7 +5,7 @@ import AppScreenContainer from '../components/AppScreenContainer';
 import AddCard from '../components/AddCard';
 import { dimensions } from '../global/styles';
 
-const WalletList = () => (
+const WalletList: React.FC<{}> = () => (
   <AppScreenContainer>
     <PrimaryHeader title="wallet list" />
     <View style={{ padding: dimensions.unit * 2 }}>

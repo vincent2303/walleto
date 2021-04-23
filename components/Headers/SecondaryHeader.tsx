@@ -7,7 +7,7 @@ interface Props {
   title: string
 }
 
-const SecondaryHeader = ({ title }: Props) => (
+const SecondaryHeader: React.FC<Props> = ({ title }) => (
   <HeaderContainer>
     <BackNavigationButton title="Home" />
     <HeaderTitle title={title} />

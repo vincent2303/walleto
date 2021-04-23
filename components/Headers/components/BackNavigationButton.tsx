@@ -9,7 +9,7 @@ interface Props {
   title: string
 }
 
-const BackNavigationButton = ({ title }: Props) => {
+const BackNavigationButton: React.FC<Props> = ({ title }) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity style={styles.container} onPress={() => navigation.goBack()}>
