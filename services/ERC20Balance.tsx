@@ -1,58 +1,75 @@
 import axios from 'axios';
-import { Wallet, TokenData } from '../global/types';
+import { Wallet, TokenPrices } from '../global/types';
 import { addresses, ETHAPiKey } from './tempConfig.json';
 
-type Tokens = {
-    balance:number,
-    tokenInfo: {
-                decimals:number,
-                symbol:string,
-                price: {rate:number}
-                }
+type TokensResponse = {
+  balance: number,
+  tokenInfo: {
+    address:string,
+    decimals: number,
+    symbol: string,
+    price: {rate:number}
   }
+}
 
 type EthplorerResponse = {
-  ETH:{balance:number,
-      price:{rate:number}
-   },
-  tokens:Tokens[]
-  }
+  ETH: {balance: number,
+    price: {rate: number}
+  },
+  tokens: TokensResponse[]
+}
 
-const computeERC20AddressWallet = async (address:string):Promise<Wallet> => {
+const getERC20AddressWallet = async (address:string):Promise<[Wallet, TokenPrices]> => {
   try {
     const response = await axios.get(`https://api.ethplorer.io/getAddressInfo/${address}${ETHAPiKey}`);
     return parseEthplorerResponse(response.data);
   } catch (error) {
-    return error;
+    const w:Wallet = new Map();
+    const t:TokenPrices = new Map();
+    return [w, t];
   }
 };
 
-const parseEthplorerResponse = (response:EthplorerResponse):Wallet => {
+const parseEthplorerResponse = (response:EthplorerResponse):[Wallet, TokenPrices] => {
   // Store ETH balance and price
-  const { balance: ethBalance, price: { rate: price } } = response.ETH;
-  const ethInfo:TokenData = { balance: ethBalance, price };
-  // Store tokens balances and prices
-  const wallet:Wallet = new Map(response.tokens
-    .filter((token:Tokens) => token.tokenInfo.symbol !== '')
-    .map((token:Tokens) => {
-      const { balance } = token;
-      const { decimals, symbol, price: { rate: tokenPrice } } = token.tokenInfo;
-      // check for valid tokens
-      const tokenData:TokenData = { balance: balance * 10 ** -decimals, price: tokenPrice };
-      return [symbol, tokenData];
+  const { balance: ethBalance, price: { rate: ethPrice } } = response.ETH;
+
+  response.tokens = response.tokens.filter((token:TokensResponse) => token.tokenInfo.symbol !== '');
+  const prices:TokenPrices = new Map(response.tokens
+    .map((token:TokensResponse) => {
+      const { symbol, price: { rate: price } } = token.tokenInfo;
+      return [symbol, price];
     }));
-  wallet.set('ETH', ethInfo);
-  return wallet;
+
+  const wallet:Wallet = new Map(response.tokens
+    .map((token:TokensResponse) => {
+      const { balance, tokenInfo: { symbol } } = token;
+      return [symbol, balance];
+    }));
+
+  wallet.set('ETH', ethBalance);
+  prices.set('ETH', ethPrice);
+  return [wallet, prices];
 };
 
-const fetchAdressesWallet = async () => {
-  const addressesWallet:Promise<Wallet>[] = [];
-  addresses.forEach(async (address) => {
-    const erc20Wallet = computeERC20AddressWallet(address);
-    addressesWallet.push(erc20Wallet);
+const formatData = (data:[Wallet, TokenPrices][]): [Wallet[], TokenPrices] => {
+  const walletList:Wallet[] = [];
+  const tokensMap:TokenPrices = new Map();
+
+  data.forEach(([wallet, token]) => {
+    walletList.push(wallet);
+    token.forEach((value, key) => tokensMap.set(key, value));
   });
-  const wallets = await Promise.all(addressesWallet);
-  return wallets;
+  return [walletList, tokensMap];
 };
 
-export default fetchAdressesWallet;
+const computeWalletsfromERC20 = async () => {
+  const addressesWallet:Promise<[Wallet, TokenPrices]>[] = [];
+  addresses.forEach(async (address) => {
+    addressesWallet.push(getERC20AddressWallet(address));
+  });
+  const addressesData = await (await Promise.all(addressesWallet));
+  return formatData(addressesData);
+};
+
+export default computeWalletsfromERC20;

@@ -13,4 +13,4 @@ web-build/
 .DS_Store
 
 # hide keys 
-./services/tempConfig.json
+services/*.json

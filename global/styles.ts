@@ -22,6 +22,7 @@ const dimensions = {
 
 const fontSizes = {
   small: 12,
+  medium: 18,
   big: 24,
 };
 
