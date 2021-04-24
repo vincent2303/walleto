@@ -19,3 +19,13 @@ export type BottomTabNavProps<T extends keyof ParamList> = {
   navigation: BottomTabNavigationProp<ParamList, T>,
   route: RouteProp<ParamList, T>
 }
+
+export type TokenPrices = Map<string, number | undefined>;
+export type Wallet = Map<string, Number>;
+
+export type WalletCardData = {
+  name:string,
+  address:string,
+  date:Date,
+  usdValue:number,
+};
