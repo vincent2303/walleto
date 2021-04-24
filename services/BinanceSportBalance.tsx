@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Wallet, TokenPrices } from '../global/types';
+import { WalletBalance, TokenPrices } from '../global/types';
 import { MINIMUM_BALANCE, binanceAPIKey, secret } from './tempConfig.json';
 
 import createHmacString from './utils';
@@ -51,7 +51,7 @@ const getBinancePrices = async () => {
 
 const parseBinanceBalance = (
   pricesResponse:BinancePriceObject[], balanceResponse:BinanceBalanceObject[],
-):[Wallet, TokenPrices] => {
+):[WalletBalance, TokenPrices] => {
   const allPairs:TokenPrices = new Map(
     pricesResponse.map((pair:BinancePriceObject) => [pair.symbol, +pair.price]),
   );
@@ -60,7 +60,7 @@ const parseBinanceBalance = (
     (token:BinanceBalanceObject) => token.free > MINIMUM_BALANCE,
   );
 
-  const wallet:Wallet = new Map(
+  const wallet:WalletBalance = new Map(
     filteredResponse.map((token:BinanceBalanceObject) => [token.asset, +token.free]),
   );
 
@@ -70,24 +70,21 @@ const parseBinanceBalance = (
       return [token.asset, allPairs.get(ticker)];
     }),
   );
-  // ADD BTC price if not already in wallet
+
   if (Object.prototype.hasOwnProperty.call(prices, 'BTC')) {
     prices.set('BTC', prices.get('BTCUSDT'));
   }
 
-  // ADD EUR price if not already in wallet
   if (Object.prototype.hasOwnProperty.call(wallet, 'EUR')) {
     prices.set('EUR', prices.get('EURUSDT'));
   }
   return [wallet, prices];
 };
 
-// eslint-disable-next-line no-unused-vars
 const computeBinanceWallet = async () => {
   const [pricesResponse, balanceResponse] = await Promise.all(
     [getBinancePrices(), getBinanceBalance()],
   );
-  console.log(parseBinanceBalance(pricesResponse, balanceResponse));
   return parseBinanceBalance(pricesResponse, balanceResponse);
 };
 

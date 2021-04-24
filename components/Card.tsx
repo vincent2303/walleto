@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { colors, dimensions, fontSizes } from '../global/styles';
-import { WalletCardData } from '../global/types';
+import { WalletData } from '../global/types';
 
 interface Props {
-    walletData: WalletCardData,
+    walletData: WalletData,
     colorIndex: number,
 }
 

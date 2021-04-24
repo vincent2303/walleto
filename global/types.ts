@@ -21,11 +21,12 @@ export type BottomTabNavProps<T extends keyof ParamList> = {
 }
 
 export type TokenPrices = Map<string, number | undefined>;
-export type Wallet = Map<string, Number>;
+export type WalletBalance = Map<string, Number>;
 
-export type WalletCardData = {
+export type WalletData = {
   name:string,
   address:string,
   date:Date,
   usdValue:number,
+  balance:WalletBalance,
 };
