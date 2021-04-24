@@ -31,7 +31,7 @@ const CardContainer = ({ walletData, colorIndex } : Props) => {
     <View style={container}>
       <View style={styles.row}>
         <Text style={styles.textName}>{name}</Text>
-        <Text style={styles.textValus}>${usdValue}</Text>
+        <Text style={styles.textValues}>${usdValue}</Text>
       </View>
       <Text style={styles.textAddress} numberOfLines={1}>{address}</Text>
       <Text style={styles.textDate}>{date.toISOString().split('T')[0]}</Text>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: colors.white,
   },
-  textValus: {
+  textValues: {
     fontSize: fontSizes.big,
     fontWeight: '700',
     color: colors.white,

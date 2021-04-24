@@ -20,7 +20,7 @@ export type BottomTabNavProps<T extends keyof ParamList> = {
   route: RouteProp<ParamList, T>
 }
 
-export type TokenPrices = Map<string, number | undefined>;
+export type TokenPrices = Map<string, number>;
 export type WalletBalance = Map<string, Number>;
 
 export type WalletData = {
