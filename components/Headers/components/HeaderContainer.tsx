@@ -2,7 +2,11 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { colors, dimensions } from '../../../global/styles';
 
-const HeaderContainer = ({ children }: { children: JSX.Element | JSX.Element[] }) => (
+interface Props {
+  children: JSX.Element | JSX.Element[]
+}
+
+const HeaderContainer: React.FC<Props> = ({ children }) => (
   <View style={styles.container}>
     {children}
   </View>

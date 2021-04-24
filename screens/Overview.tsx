@@ -14,7 +14,7 @@ const walletData:WalletCardData = {
   address: 'àxzieaozijoizjooazdavvsvsdsdfsdfsdsfvozijda',
 };
 
-const Overview = () => (
+const Overview: React.FC<{}> = () => (
   <AppScreenContainer>
     <PrimaryHeader title="overview" />
     <View style={{ padding: dimensions.unit * 2 }}>

@@ -6,7 +6,7 @@ interface Props {
   title: string
 }
 
-const PrimaryHeader = ({ title }: Props) => (
+const PrimaryHeader: React.FC<Props> = ({ title }) => (
   <HeaderContainer>
     <HeaderTitle title={title} />
   </HeaderContainer>
