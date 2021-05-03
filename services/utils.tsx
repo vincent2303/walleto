@@ -7,4 +7,8 @@ const createHmacString = (secret:string, binanceTime:string): string => {
   return hmac;
 };
 
+const handleUndefiniedUSDPrice = (secret:string, binanceTime:string): string => {
+  return
+};
+
 export default createHmacString;

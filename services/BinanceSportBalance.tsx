@@ -64,21 +64,36 @@ const parseBinanceBalance = (
     filteredResponse.map((token:BinanceBalanceObject) => [token.asset, +token.free]),
   );
 
-  const prices:TokenPrices = new Map(
+  const bitcoinPriceUSDT = allPairs.get('BTCUSDT')!;
+
+  const walletUSDPrices:TokenPrices = new Map(
     filteredResponse.map((token:BinanceBalanceObject) => {
-      const ticker = `${token.asset}USDT`;
-      return [token.asset, allPairs.get(ticker)];
+      const usdTicker = `${token.asset}USDT`;
+      let usdPrice = 0;
+      // Check if usd pair exist
+      if (allPairs.has(usdTicker)) {
+        usdPrice = allPairs.get(usdTicker)!;
+      } else {
+        // Check if bitcoin pair exist
+        const btcTicker = `${token.asset}BTC`;
+        if (allPairs.has(btcTicker)) {
+          usdPrice = allPairs.get(btcTicker)! * bitcoinPriceUSDT;
+        }
+      }
+      return [token.asset, usdPrice];
     }),
   );
 
-  if (Object.prototype.hasOwnProperty.call(prices, 'BTC')) {
-    prices.set('BTC', prices.get('BTCUSDT'));
+  if (walletUSDPrices.has('BTC')) {
+    walletUSDPrices.set('BTC', bitcoinPriceUSDT);
   }
 
-  if (Object.prototype.hasOwnProperty.call(wallet, 'EUR')) {
-    prices.set('EUR', prices.get('EURUSDT'));
+  if (walletUSDPrices.has('EUR')) {
+    walletUSDPrices.set('EUR', allPairs.get('EURUSDT')!);
   }
-  return [wallet, prices];
+  // Set usdt to 1$
+  walletUSDPrices.set('USDT', 1);
+  return [wallet, walletUSDPrices];
 };
 
 const computeBinanceWallet = async () => {
